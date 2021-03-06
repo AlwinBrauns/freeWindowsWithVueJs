@@ -4,7 +4,7 @@
   :id="windowHeaderId"
   @mousemove="changePos"
   @touchmove.prevent="changePos"
-  @mousedown="mouseDownHeader = true"
+  @mousedown.prevent="mouseDownHeader = true"
   @mouseup="mouseDownHeader = false"
   @touchstart="keyDownHeader"
   @touchend="keyUpHeader"
