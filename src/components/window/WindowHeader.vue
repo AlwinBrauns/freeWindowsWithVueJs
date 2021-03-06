@@ -76,7 +76,7 @@ export default {
     .window-header{
         background-color: #333366;
         width: 100%;
-        height: 30px;
+        height: 30%;
         cursor: move;
         display: grid;
     }
@@ -85,10 +85,9 @@ export default {
        width: 23px;
        height: 23px;
        border-radius: 100%;
-       font-family: Arial, Helvetica, sans-serif;
        font-weight: bold;
        position: absolute;
-       top: 15px;
+       top: 22px;
        right: 0;
        transform: translate(-50%,-50%);
        color: #DDDDFF;

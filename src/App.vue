@@ -1,7 +1,5 @@
 <template>
   <window></window>
-  <window></window>
-  <window></window>
 </template>
 
 <script>
@@ -14,6 +12,7 @@ export default {
 *{
   margin: 0;
   padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
 }
   body{
     background-color: #DDDDFF;
