@@ -1,5 +1,8 @@
 # freewindow
 
+
+![Gif Example](example.gif)
+
 ## Project setup
 ```
 npm install
