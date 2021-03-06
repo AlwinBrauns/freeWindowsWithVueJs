@@ -1,6 +1,6 @@
 <template>
   <div class="window-body">
-      <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+      <textarea placeholder="Notizen..."></textarea>
   </div>
 </template>
 
@@ -19,19 +19,11 @@ export default {
     overflow: auto;
     word-wrap: break-word;
   }
-  .window-body p{
+  .window-body textarea{
     padding: 0.3em;
-  }
-  *::-webkit-scrollbar,
-  *::-webkit-scrollbar-thumb {
-    width: 25px;
-    border-radius: 20px;
-    background-clip: padding-box;
-    border: 10px solid transparent;
-  } 
-
-  *::-webkit-scrollbar-thumb {        
-    box-shadow: inset 0 0 0 10px;
+    resize: none;
+    background-color: rgba(255, 255, 255, 0);
+    color: #DDDDFF;
   }
 
 </style>

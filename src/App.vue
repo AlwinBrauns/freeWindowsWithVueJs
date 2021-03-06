@@ -108,4 +108,16 @@ export default {
     box-shadow: 0px 0px 2px black;
 
   }
+  
+  *::-webkit-scrollbar,
+  *::-webkit-scrollbar-thumb {
+    width: 12px;
+    color:#DDDDFF;
+    background-color: #8888DD;
+    border: none;
+  } 
+
+  *::-webkit-scrollbar-thumb {        
+    box-shadow: inset 0 0 0 10px;
+  }
 </style>
