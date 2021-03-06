@@ -15,10 +15,15 @@
 
 <script>
 export default {
-    props: ['windowId'],
-    emits: {'delete-me': function(id){
+    props: ['windowId', 'windowZ'],
+    emits: {
+        'delete-me': function(id){
         return id?true:false;
-    }},
+        },
+        'on-focus': function(id){
+        return id?true:false;
+        },
+    },
     data() {
         return {
             x: 0,
@@ -33,6 +38,7 @@ export default {
             return {
                 transform: 'translate('+(this.x)+'px,'+(this.y)+'px)',
                 width: this.width.toString() + 'px',
+                zIndex: this.windowZ
             };
         }
     },
@@ -42,6 +48,7 @@ export default {
             this.y = y - this.dy;
         },
         differenceBetweenClickAndElement(event){
+            this.$emit('on-focus', this.windowId);
             this.dx = ((((event.clientX!==undefined)?event.clientX:(event.touches[0].clientX))) - this.x)
             this.dy = ((((event.clientY!==undefined)?event.clientY:(event.touches[0].clientY))) - this.y)
         },

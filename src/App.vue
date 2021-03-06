@@ -3,11 +3,20 @@
       <button @click="addWindow">Add Window</button>
       <h3>Free Windows</h3>
     </div>
-    <window v-for="window in windows" :key="window.id" :window-id="window.id" @delete-me="deleteWindow"></window>
+    <window
+     v-for="window in windows" 
+     :key="window.id" 
+     :window-id="window.id"
+     :window-z="window.zIndex"
+     @delete-me="deleteWindow"
+     @on-focus="setFocusOnWindow"
+     ></window>
 </template>
 
 <script>
+import Window from './components/window/Window.vue';
 export default {
+  components: { Window },
   data() {
     return {
       windows: [
@@ -15,6 +24,15 @@ export default {
     }
   },
   methods: {
+    setFocusOnWindow(id){
+      this.windows.forEach(window=>{
+        if(window.id===id){
+          window.zIndex = 1;
+        }else{
+          window.zIndex = 0;
+        }
+      });
+    },
     generateID(){
       let myID = (Math.random()*(200)).toString();
       myID = myID.replace(/\./g,'Z');
@@ -31,7 +49,7 @@ export default {
       return myID;
     },
     addWindow(){
-      this.windows.push({id: this.generateID()});
+      this.windows.push({id: this.generateID(), zIndex: 0});
     },
     deleteWindow(id){
       this.windows = this.windows.filter(window=>{
@@ -63,8 +81,9 @@ export default {
 
   .window-menu h3{
     position: relative;
-    height: 50%;
-    top: 58%;
+    font-weight: 700;
+    height: fit-content;
+    top: 50%;
     left: 10%;
     transform: translate(0%, -50%);
     vertical-align: middle;
