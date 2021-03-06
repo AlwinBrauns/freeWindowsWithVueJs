@@ -3,7 +3,7 @@
       <button @click="addWindow">Add Window</button>
       <h3>Free Windows</h3>
     </div>
-    <window v-for="window in windows" :key="window.id" :window-id="window.id"></window>
+    <window v-for="window in windows" :key="window.id" :window-id="window.id" @delete-me="deleteWindow"></window>
 </template>
 
 <script>
@@ -32,6 +32,11 @@ export default {
     },
     addWindow(){
       this.windows.push({id: this.generateID()});
+    },
+    deleteWindow(id){
+      this.windows = this.windows.filter(window=>{
+        return window.id !== id;
+      });
     }
   },
 }

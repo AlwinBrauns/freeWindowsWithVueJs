@@ -16,6 +16,9 @@
 <script>
 export default {
     props: ['windowId'],
+    emits: {'delete-me': function(id){
+        return id?true:false;
+    }},
     data() {
         return {
             x: 0,
@@ -43,7 +46,7 @@ export default {
             this.dy = ((((event.clientY!==undefined)?event.clientY:(event.touches[0].clientY))) - this.y)
         },
         deleteWindow(id){
-            alert('not implemented yet, would delte window with ID: ' + id);
+            this.$emit('delete-me', id)
         },
     },
 }
