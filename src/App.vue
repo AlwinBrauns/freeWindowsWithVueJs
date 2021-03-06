@@ -1,12 +1,22 @@
 <template>
-  <window :window-id="generateID()"></window>
+    <window v-for="window in windows" :key="window.id" :window-id="window.id"></window>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      
+      windows: [
+        {
+          id: this.generateID(),
+        },
+        {
+          id: this.generateID(),
+        },
+        {
+          id: this.generateID(),
+        },
+      ],
     }
   },
   methods: {
