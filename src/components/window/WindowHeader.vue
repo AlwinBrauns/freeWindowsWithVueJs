@@ -6,6 +6,8 @@
   @touchmove.prevent="changePos"
   @mousedown="mouseDownHeader = true"
   @mouseup="mouseDownHeader = false"
+  @touchstart="keyDownHeader"
+  @touchend="keyUpHeader"
   >
     <div class="close" @click="this.$emit('delete-me', windowHeaderId)"><p>X</p></div>
   </div>
@@ -31,10 +33,6 @@ export default {
         window.addEventListener('mousemove', this.changePos);
         window.addEventListener('touchmove', this.mouseMoveWindowOn);
         window.addEventListener('touchmove', this.changePos);
-    },
-    mounted() {
-        window.document.getElementById(this.windowHeaderId).addEventListener('touchstart', this.keyDownHeader);
-        window.document.getElementById(this.windowHeaderId).addEventListener('touchend', this.keyUpHeader);
     },
     emits: {
         'change-pos': function(x,y){
@@ -66,7 +64,7 @@ export default {
         async changePos(event){
             await new Promise(resolve => setTimeout(resolve, 1000/this.fps));
             if((this.mouseMoveWindow && this.mouseDownHeader) || (this.mouseDownHeader && !this.mouseDownWindow)){
-                this.$emit('change-pos', (((event.clientX!==undefined)?event.clientX:(event.touches[0].clientX)) - 50), (((event.clientY!==undefined)?event.clientY:(event.touches[0].clientY)) - 20))
+                this.$emit('change-pos', (((event.clientX!==undefined)?event.clientX:(event.touches[0].clientX))), (((event.clientY!==undefined)?event.clientY:(event.touches[0].clientY))))
             }
         },
     },
