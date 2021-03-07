@@ -14,9 +14,7 @@
 </template>
 
 <script>
-import Window from './components/window/Window.vue';
 export default {
-  components: { Window },
   data() {
     return {
       windows: [
