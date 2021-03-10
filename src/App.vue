@@ -23,6 +23,7 @@ export default {
   },
   methods: {
     setFocusOnWindow(id){
+      console.log("setfocus"  + id)
       this.windows.forEach(window=>{
         if(window.id===id){
           window.zIndex = 1;

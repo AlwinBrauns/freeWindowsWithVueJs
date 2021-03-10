@@ -1,8 +1,8 @@
 <template>
 <div class="window" 
 :style="styleCSS" 
-@mousedown="borderHandler($event, true);"
-@touchstart="borderHandler($event, true);"
+@mousedown="differenceBetweenClickAndElement($event); borderHandler($event, true);"
+@touchstart="differenceBetweenClickAndElement($event); borderHandler($event, true);"
 @mouseup="borderHandler($event, false)"
 @touchend="borderHandler($event, false)"
 >
@@ -114,7 +114,6 @@ export default {
             console.log("In Element: new diff set " + this.dx + " " + this.dy);
         },
         differenceBetweenClickAndWindow(event){
-            this.$emit('on-focus', this.windowId);
             this.wdx = ((((event.clientX!==undefined)?event.clientX:(event.touches[0].clientX))));
             this.wdy = ((((event.clientY!==undefined)?event.clientY:(event.touches[0].clientY))));
             console.log("Window: new diff set " + this.wdx + " " + this.wdy);
