@@ -87,6 +87,10 @@ export default {
         borderHandler(event, state){
             var x = event.offsetX;
             var y = event.offsetY;
+            if(x===undefined){
+                x = event.touches[0]?.clientX;
+                y = event.touches[0]?.clientY;
+            }
             if(
                 (x < 0 || x > this.width)
                 ||
@@ -139,6 +143,8 @@ export default {
                 let clientX = ((event.clientX!==undefined)?event.clientX:(event.touches[0].clientX));
                 let clientY = ((event.clientY!==undefined)?event.clientY:(event.touches[0].clientY));
                 
+                
+                
                 //let offsetX = ((event.offsetX!==undefined)?event.offsetX:(event.touches[0].offsetX));
                 //let offsetY = ((event.offsetY!==undefined)?event.offsetY:(event.touches[0].offsetY));
 
@@ -149,7 +155,6 @@ export default {
 
 
                 //console.log(event)
-
                 this.width = windowWidth + diffX;
                 this.height = windowHeight + diffY;
             }
