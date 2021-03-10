@@ -1,8 +1,8 @@
 <template>
 <div class="window" 
 :style="styleCSS" 
-@mousedown="differenceBetweenClickAndElement($event); borderHandler($event, true);"
-@touchstart="differenceBetweenClickAndElement($event); borderHandler($event, true);"
+@mousedown="borderHandler($event, true);"
+@touchstart="borderHandler($event, true);"
 @mouseup="borderHandler($event, false)"
 @touchend="borderHandler($event, false)"
 >
@@ -20,8 +20,8 @@
 </template>
 
 <script>
-const windowWidth = 200;
-const windowHeight = 150;
+var windowWidth = 200;
+var windowHeight = 150;
 export default {
     props: ['windowId', 'windowZ'],
     emits: {
@@ -33,11 +33,21 @@ export default {
         },
     },
     created() {
-        window.addEventListener('mouseup', ()=>this.setBorderPressed(false));
-        window.addEventListener('touchend', ()=>this.setBorderPressed(false));
+        window.addEventListener('mouseup', ()=>{
+            this.setBorderPressed(false);
+            this.setWindowWidth();
+            });
+        window.addEventListener('touchend', ()=>{
+            this.setBorderPressed(false);
+            this.setWindowWidth();
+            });
         window.addEventListener('mousedown', this.keyDownWindow);
+        window.addEventListener('mousedown', this.differenceBetweenClickAndWindow);
+
         window.addEventListener('mouseup', this.keyUpWindow);
         window.addEventListener('touchstart', this.keyDownWindow);
+        window.addEventListener('touchstart', this.differenceBetweenClickAndWindow);
+
         window.addEventListener('touchend', this.keyUpWindow);
         window.addEventListener('mousemove', this.mouseMoveWindowOn);
         window.addEventListener('mousemove', this.changeSize);
@@ -50,6 +60,8 @@ export default {
             y: 0,
             dx: 0,
             dy: 0,
+            wdx: 0,
+            wdy: 0,
             width: windowWidth,
             height: windowHeight,
             borderSize: 7,
@@ -57,6 +69,7 @@ export default {
             mouseDownWindow: false,
             mouseMoveWindow: false,
             fps: 60,
+            
         }
     },
     computed: {
@@ -86,6 +99,10 @@ export default {
         setBorderPressed(state){
             this.borderPressed = state;
         },
+        setWindowWidth(){
+            windowWidth = this.width;
+            windowHeight = this.height;
+        },
         changePos(x,y){
             this.x = x - this.dx;
             this.y = y - this.dy;
@@ -94,7 +111,13 @@ export default {
             this.$emit('on-focus', this.windowId);
             this.dx = ((((event.clientX!==undefined)?event.clientX:(event.touches[0].clientX))) - this.x);
             this.dy = ((((event.clientY!==undefined)?event.clientY:(event.touches[0].clientY))) - this.y);
-            console.log("new diff set " + this.dx + " " + this.dy);
+            console.log("In Element: new diff set " + this.dx + " " + this.dy);
+        },
+        differenceBetweenClickAndWindow(event){
+            this.$emit('on-focus', this.windowId);
+            this.wdx = ((((event.clientX!==undefined)?event.clientX:(event.touches[0].clientX))));
+            this.wdy = ((((event.clientY!==undefined)?event.clientY:(event.touches[0].clientY))));
+            console.log("Window: new diff set " + this.wdx + " " + this.wdy);
         },
         deleteWindow(id){
             this.$emit('delete-me', id)
@@ -114,14 +137,14 @@ export default {
             event.preventDefault();
             await new Promise(resolve => setTimeout(resolve, 1000/this.fps));
             if((this.mouseMoveWindow && this.borderPressed) || (this.borderPressed && !this.mouseDownWindow)){
-                //let clientX = ((event.clientX!==undefined)?event.clientX:(event.touches[0].clientX));
-                //let clientY = ((event.clientY!==undefined)?event.clientY:(event.touches[0].clientY));
+                let clientX = ((event.clientX!==undefined)?event.clientX:(event.touches[0].clientX));
+                let clientY = ((event.clientY!==undefined)?event.clientY:(event.touches[0].clientY));
                 
-                let offsetX = ((event.offsetX!==undefined)?event.offsetX:(event.touches[0].offsetX));
-                let offsetY = ((event.offsetY!==undefined)?event.offsetY:(event.touches[0].offsetY));
+                //let offsetX = ((event.offsetX!==undefined)?event.offsetX:(event.touches[0].offsetX));
+                //let offsetY = ((event.offsetY!==undefined)?event.offsetY:(event.touches[0].offsetY));
 
-                let diffX = (offsetX) - this.dx;
-                let diffY = (offsetY) - this.dy;
+                let diffX = (clientX) - this.wdx;
+                let diffY = (clientY) - this.wdy;
                 console.log("size window... DX: " + diffX + " DY: " + diffY + "\n\n");
 
 
